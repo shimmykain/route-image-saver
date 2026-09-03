@@ -37,10 +37,10 @@ aws_bucket = st.sidebar.text_input("S3 Bucket Name", value=saved_bucket)
 aws_region = st.sidebar.text_input("AWS Region", value=saved_region)
 
 if st.sidebar.button("Save to Browser"):
-    cookie_manager.set("aws_access_key", aws_access_key)
-    cookie_manager.set("aws_secret_key", aws_secret_key)
-    cookie_manager.set("aws_bucket", aws_bucket)
-    cookie_manager.set("aws_region", aws_region)
+    cookie_manager.set("aws_access_key", aws_access_key, key="set_ak")
+    cookie_manager.set("aws_secret_key", aws_secret_key, key="set_sk")
+    cookie_manager.set("aws_bucket", aws_bucket, key="set_bucket")
+    cookie_manager.set("aws_region", aws_region, key="set_region")
     st.sidebar.success("Credentials saved!")
 
 uploaded_file = st.file_uploader("Upload Route Excel File (.xlsx)", type=["xlsx"])
