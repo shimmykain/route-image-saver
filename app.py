@@ -16,6 +16,13 @@ cookie_manager = st.session_state['cookie_manager']
 st.title("🚚 Route Image Saver")
 st.write("Upload your exported Excel sheet. This app will download the temporary images and save them permanently to AWS S3, returning a new sheet with permanent links.")
 
+# Force a short wait and rerun on the very first load so cookies have time to sync from the browser
+import time
+if 'first_load_done' not in st.session_state:
+    time.sleep(0.3)
+    st.session_state['first_load_done'] = True
+    st.rerun()
+
 # Retrieve saved cookies
 saved_access_key = cookie_manager.get(cookie="aws_access_key")
 saved_secret_key = cookie_manager.get(cookie="aws_secret_key")
@@ -42,6 +49,8 @@ if st.sidebar.button("Save to Browser"):
     cookie_manager.set("aws_bucket", aws_bucket, key="set_bucket")
     cookie_manager.set("aws_region", aws_region, key="set_region")
     st.sidebar.success("Credentials saved!")
+    time.sleep(0.3)
+    st.rerun()
 
 uploaded_file = st.file_uploader("Upload Route Excel File (.xlsx)", type=["xlsx"])
 
