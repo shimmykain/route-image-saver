@@ -124,10 +124,11 @@ if uploaded_file and aws_access_key and aws_secret_key and aws_bucket:
                 st.success("File processed successfully! All available images have been backed up.")
                 
                 # Provide a download button for the new file
+                original_name = uploaded_file.name.rsplit('.', 1)[0]
                 st.download_button(
                     label="⬇️ Download Updated Excel File",
                     data=processed_data,
-                    file_name="permanent_links_route.xlsx",
+                    file_name=f"{original_name}_permanent_link.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 )
                 
